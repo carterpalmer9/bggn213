@@ -1,0 +1,27 @@
+---
+title: "Class12"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We want to download a PDB structure and produce a protein only and ligand only PDB files
+
+```{r}
+library(bio3d)
+get.pdb("1hsg") 
+```
+
+Once we have the pdb we need to select the protein and ligand as their own pdb files
+```{r}
+pdb <- read.pdb("1hsg.pdb")
+protein <- (atom.select(pdb, 'protein', value = TRUE))
+ligand <- (atom.select(pdb, 'ligand', value = TRUE))
+
+write.pdb (protein, file = "1hsg_protein.pdb")
+write.pdb (ligand, file = "1hsg_ligand.pdb")
+
+```
+
